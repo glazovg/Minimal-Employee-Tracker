@@ -1,5 +1,9 @@
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
 const mysql = require('mysql2');
 const inquirer = require('inquirer');
+import chalk from 'chalk';
+const figlet = require("figlet");
 require('console.table');
 
 /**
@@ -17,6 +21,7 @@ const connection = mysql.createConnection({
 
 connection.connect(err => {
     if (err) throw err;
+    intro();
     init();
 });
 
@@ -54,6 +59,14 @@ const options = [
         fn: () => connection.end()
     }
 ];
+
+function intro() {
+    console.log(
+        chalk.blue(
+            figlet.textSync("Minimal Employee Tracker")
+        )
+    );
+}
 
 async function init() {
     const answer = await inquirer
@@ -157,7 +170,7 @@ async function addRole() {
             choices: departments.map(department => department.name)
         },
     ]);
-    
+
     const index = departments.findIndex(department => department.name === answer.department);
     const departmentId = departments[index].id;
     const query = `INSERT INTO role (title, salary, department_id ) VALUES (?, ?, ?);`;
@@ -207,7 +220,7 @@ async function addEmployee() {
             choices: managerChoices
         },
     ]);
-    
+
     const indexRole = roles.findIndex(role => role.title === answer.role);
     const indexManager = managers.findIndex(manager => manager.name === answer.manager);
     const roleId = roles[indexRole].id;
@@ -247,7 +260,7 @@ async function updateRole() {
             choices: roles.map(role => role.title)
         },
     ]);
-    
+
     const indexEmployee = employees.findIndex(employee => employee.name === answer.employee);
     const indexRole = roles.findIndex(role => role.title === answer.role);
     const employeeId = employees[indexEmployee].id;
