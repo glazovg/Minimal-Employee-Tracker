@@ -21,7 +21,7 @@ Run command: `npm install` to install all the necessary packages.
 ## Usage
 To start the application just run: `npm start`
 
-The following walkthrow video is going to explain all the functionality: ![Walkthrow video]()
+The following walkthrow video is going to explain all the functionality: [Walkthrow video](https://watch.screencastify.com/v/YgXGMAQUeMCc5EGcF2QH)
     
 <a name="license"></a>
 ## License
